@@ -1,12 +1,19 @@
 const { ethers } = require("hardhat");
 
 async function main() {
+    // await hre.run('compile');
+    const Counter = await ethers.getContractFactory("Counter");
+    // 初始参数为0
+    const counter = await Counter.deploy();
 
-   const Counter = await ethers.getContractFactory("Counter");
-   const counter = await Counter.deploy();
-   await counter.deployed();
+    await counter.deployed();
 
-  console.log("Counter address:", counter.address);
+    console.log("Counter deployed to:", counter.address);
 }
 
-main();
+main()
+    .then(() => process.exit(0))
+    .catch((error) => {
+    console.error(error);
+    process.exit(1);
+});
